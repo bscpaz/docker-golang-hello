@@ -1,0 +1,9 @@
+FROM alpine AS builder
+RUN mkdir -p /usr/local/go/bin
+COPY ./bin/hello /usr/local/go/bin/hello
+
+
+FROM scratch
+WORKDIR /usr/local/go/bin
+COPY --from=builder /usr/local/go/bin .
+ENTRYPOINT [ "./hello" ]
